@@ -144,7 +144,8 @@ static partial class Module
     }
     else
     {
-        throw new ArgumentException("Player not found");
+        // If the user doesn't exist they must create a user by calling CreatePlayer().
+        //throw new ArgumentException("Player not found");
     }
   }
 
