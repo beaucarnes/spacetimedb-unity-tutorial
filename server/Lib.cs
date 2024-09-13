@@ -121,7 +121,7 @@ static partial class Module
   }
 
   /// Called when the client connects, we update the LoggedIn state to true
-  [SpacetimeDB.Reducer(ReducerKind.Init)]
+  [SpacetimeDB.Reducer(ReducerKind.Connect)]
   public static void ClientConnected(ReducerContext ctx) =>
     UpdatePlayerLoginState(ctx, loggedIn:true);
 
