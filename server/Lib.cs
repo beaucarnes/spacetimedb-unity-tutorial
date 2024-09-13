@@ -59,7 +59,7 @@ static partial class Module
 
     // Make sure we don't already have a player with this identity
     PlayerComponent? user = PlayerComponent.FindByIdentity(sender);
-    if (user is null)
+    if (user != null)
     {
         throw new ArgumentException("Player already exists");
     }
