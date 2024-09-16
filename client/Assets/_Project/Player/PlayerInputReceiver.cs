@@ -31,7 +31,7 @@ public class PlayerInputReceiver : MonoBehaviour
 		}
     }
 
-	
+
     void OnMove(InputValue value)
     {
         if (PlayerMovementController.Local == null)

@@ -25,31 +25,39 @@ public class LocalPlayer : MonoBehaviour
         PlayerAnimator.Local = GetComponentInChildren<PlayerAnimator>(true);        
     }
 
+    public Vector3 GetDirectionVec()
+    {
+        var vec = new Vector3(movementVec.x, 0, movementVec.y);
+        return CameraController.instance.transform.TransformDirection(vec);
+    }
+
+    public void SetMove(UnityEngine.Vector3 vec) => movementVec = vec;
 
     private float? lastUpdateTime;
     private void FixedUpdate()
     {
-      float? deltaTime = Time.time - lastUpdateTime;
-      bool hasUpdatedRecently = deltaTime.HasValue && deltaTime.Value < 1.0f;
-      bool isConnected = SpacetimeDBClient.instance.IsConnected();
+        var directionVec = GetDirectionVec();
+        PlayerMovementController.Local.DirectionVec = directionVec;
 
-      if (hasUpdatedRecently || !isConnected)
-      {
-          return;
-      }
+        float? deltaTime = Time.time - lastUpdateTime;
+        bool hasUpdatedRecently = deltaTime.HasValue && deltaTime.Value < 1.0f;
+        bool isConnected = SpacetimeDBClient.instance.IsConnected();
 
-      lastUpdateTime = Time.time;
-      var p = PlayerMovementController.Local.GetModelTransform().position;
+        if (hasUpdatedRecently || !isConnected)
+        {
+            return;
+        } 
 
-      Reducer.UpdatePlayerPosition(new StdbVector3
-          {
+        lastUpdateTime = Time.time;
+        var p = PlayerMovementController.Local.GetModelTransform().position;
+
+        Reducer.UpdatePlayerPosition(new StdbVector3
+        {
             X = p.x,
             Y = p.y,
             Z = p.z,
-          },
-          PlayerMovementController.Local.GetModelTransform().rotation.eulerAngles.y, 
-          PlayerMovementController.Local.IsMoving());
+        },
+        PlayerMovementController.Local.GetModelTransform().rotation.eulerAngles.y, 
+        PlayerMovementController.Local.IsMoving());
     }
-
-    public void SetMove(Vector3 vec) => movementVec = vec;
 }
