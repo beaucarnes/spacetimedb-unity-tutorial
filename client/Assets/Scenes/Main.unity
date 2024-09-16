@@ -14540,7 +14540,8 @@ PrefabInstance:
     - target: {fileID: 1248606208, guid: 0a65d425d4d081a4faaed2d47c9fe6f4, type: 3}
       propertyPath: PlayerPrefab
       value: 
-      objectReference: {fileID: 6306767005561996376}
+      objectReference: {fileID: 2920994200540183967, guid: 60451e50c17c7d841b5b57e4dc68ef9c,
+        type: 3}
     - target: {fileID: 1248606208, guid: 0a65d425d4d081a4faaed2d47c9fe6f4, type: 3}
       propertyPath: moduleAddress
       value: unitytutbeau

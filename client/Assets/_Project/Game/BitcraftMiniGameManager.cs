@@ -117,8 +117,6 @@ public class BitcraftMiniGameManager : MonoBehaviour
             var movementController = remotePlayer.GetComponent<PlayerMovementController>();
             movementController.RemoteTargetPosition = position;
             movementController.RemoteTargetRotation = entity.Direction;
-
-            remotePlayer.AddComponent<RemotePlayer>().EntityId = obj.EntityId;
         }
     }
 }

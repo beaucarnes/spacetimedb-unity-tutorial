@@ -47,6 +47,8 @@ public class PlayerMovementController : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (Local != this) return;
+
         // Check to see if we need to disable/enable kinematics
         if (rigidBodyDisabled.Invoke() != body.isKinematic)
         {
