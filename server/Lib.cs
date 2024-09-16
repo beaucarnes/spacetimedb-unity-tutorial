@@ -39,7 +39,7 @@ static partial class Module
   public partial struct PlayerComponent
   {
     // An EntityId that matches an EntityId in the `EntityComponent` table.
-    [SpacetimeDB.Column(ColumnAttrs.PrimaryKey)]
+    [SpacetimeDB.Column(ColumnAttrs.PrimaryKeyAuto)]
     public ulong EntityId;
 
     // The user's identity, which is unique to each player
@@ -64,23 +64,6 @@ static partial class Module
         throw new ArgumentException("Player already exists");
     }
 
-    // Create a new entity for this player
-    try
-    {
-        new EntityComponent
-        {
-            // EntityId = 0, // 0 is the same as leaving null to get a new, unique Id
-            Position = new StdbVector3 { X = 0, Y = 0, Z = 0 },
-            Direction = 0,
-            Moving = false,
-        }.Insert();
-    }
-    catch
-    {
-        Log("Error: Failed to create a unique EntityComponent", LogLevel.Error);
-        throw;
-    }
-
     // The PlayerComponent uses the same entity_id and stores the identity of
     // the owner, username, and whether or not they are logged in.
     try
@@ -98,6 +81,26 @@ static partial class Module
         Log("Error: Failed to insert PlayerComponent", LogLevel.Error);
         throw;
     }
+
+    var player = PlayerComponent.FindByIdentity(ctx.Sender)!.Value;
+    
+    // Create a new entity for this player
+    try
+    {
+        new EntityComponent
+        {
+            EntityId = player.EntityId, // 0 is the same as leaving null to get a new, unique Id
+            Position = new StdbVector3 { X = 0, Y = 0, Z = 0 },
+            Direction = 0,
+            Moving = false,
+        }.Insert();
+    }
+    catch
+    {
+        Log("Error: Failed to create a unique EntityComponent", LogLevel.Error);
+        throw;
+    }
+
     Log($"Player created: {username}");
   }
 
