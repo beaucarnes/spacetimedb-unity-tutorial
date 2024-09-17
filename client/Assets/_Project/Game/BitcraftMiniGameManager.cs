@@ -67,7 +67,17 @@ public class BitcraftMiniGameManager : MonoBehaviour
         SpacetimeDBClient.instance.Connect(AuthToken.Token, hostName, moduleAddress);
 
         PlayerComponent.OnInsert += PlayerComponent_OnInsert;
+        Reducer.OnSendChatMessageEvent += OnSendChatMessageEvent;
     }
+
+    private void OnSendChatMessageEvent(ReducerEvent dbEvent, string message)
+    {
+        var player = PlayerComponent.FindByIdentity(dbEvent.Identity);
+        if (player != null)
+        {
+            UIChatController.instance.OnChatMessageReceived(player.Username + ": " + message);
+        }
+}
 
     void OnSubscriptionApplied()
     {

@@ -3,11 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using SpacetimeDB.Types;
 using TMPro;
-using Unity.VisualScripting;
 
 public class RemotePlayer : MonoBehaviour
 {
-    [DoNotSerialize]
     public ulong EntityId;
 
     public TMP_Text UsernameElement;

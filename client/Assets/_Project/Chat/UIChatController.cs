@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using Button = UnityEngine.UI.Button;
+using SpacetimeDB.Types;
 
 public class UIChatController : Singleton<UIChatController>
 {
@@ -82,6 +83,7 @@ public class UIChatController : Singleton<UIChatController>
     
     public void OnChatButtonPress()
     {
+        Reducer.SendChatMessage(_chatInput.text);
         _chatInput.text = "";
     }
 }
