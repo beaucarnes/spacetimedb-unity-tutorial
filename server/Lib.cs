@@ -190,6 +190,7 @@ static partial class Module
   {
     // The primary key for this table will be auto-incremented
     [SpacetimeDB.Column(ColumnAttrs.PrimaryKeyAuto)]
+    public ulong MessageId;
 
     // The entity id of the player that sent the message
     public ulong SenderId;
